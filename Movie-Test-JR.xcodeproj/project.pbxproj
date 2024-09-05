@@ -51,6 +51,9 @@
 		9692BF602C89EA90001C17E3 /* Movie-Test-JR */ = {
 			isa = PBXGroup;
 			children = (
+				9692BF712C89EAD5001C17E3 /* view */,
+				9692BF702C89EACB001C17E3 /* viewModel */,
+				9692BF6F2C89EAC4001C17E3 /* model */,
 				9692BF612C89EA90001C17E3 /* Movie_Test_JRApp.swift */,
 				9692BF632C89EA90001C17E3 /* ContentView.swift */,
 				9692BF652C89EA92001C17E3 /* Assets.xcassets */,
@@ -65,6 +68,27 @@
 				9692BF682C89EA92001C17E3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9692BF6F2C89EAC4001C17E3 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		9692BF702C89EACB001C17E3 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		9692BF712C89EAD5001C17E3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
