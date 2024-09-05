@@ -11,10 +11,12 @@ import Observation
 
 @Observable
 class MoviesVM{
-    
+    var movie: Movie?
     var movies:[Movie] = []
+    var genres: [Int: String] = [:]
     
     init() {
+        getGenres()
         getAllMovies()
     }
     
@@ -29,13 +31,31 @@ class MoviesVM{
                 switch response.result{
                 case .success(let data):
                     self.movies = Array(data.results)
-                    print("successful")
+                    
                 case .failure(let error):
                     print("error en la api: ",error)
                 }
             }
+    }    
+    func getGenres(){
+        AF
+            .request("https://api.themoviedb.org/3/genre/movie/list?api_key=efbc2b95033e7dde757b6c455744baa2",method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of:GenreResponse.self){response in
+                switch response.result{
+                case .success(let data):
+                    self.genres = Dictionary(uniqueKeysWithValues: data.genres.map { ($0.id, $0.name)})
+                    
+                case .failure(let error):
+                    print("error en los generos: ",error)
+                }
+
+            }
     }
-    func getById(id:Int){
-        
+    
+    func genreNames(for movie: Movie) -> String {
+        let genreNames = movie.genre_ids.compactMap { genres[$0] }
+        return genreNames.joined(separator: ", ")
     }
+    
 }
