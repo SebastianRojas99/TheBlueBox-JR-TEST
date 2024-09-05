@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96289F762C89F5F100CABAE2 /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F752C89F5F100CABAE2 /* Movies.swift */; };
+		96289F792C89F67E00CABAE2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 96289F782C89F67E00CABAE2 /* Alamofire */; };
+		96289F7B2C89F69E00CABAE2 /* MoviesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F7A2C89F69E00CABAE2 /* MoviesVM.swift */; };
+		96289F7D2C89F6CB00CABAE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F7C2C89F6CB00CABAE2 /* API.swift */; };
+		96289F822C8A4C0F00CABAE2 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F812C8A4C0F00CABAE2 /* Error.swift */; };
+		96289F842C8A4E8A00CABAE2 /* MoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F832C8A4E8A00CABAE2 /* MoviesView.swift */; };
+		96289F862C8A580800CABAE2 /* MovieDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96289F852C8A580800CABAE2 /* MovieDescription.swift */; };
 		9692BF622C89EA90001C17E3 /* Movie_Test_JRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692BF612C89EA90001C17E3 /* Movie_Test_JRApp.swift */; };
 		9692BF642C89EA90001C17E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692BF632C89EA90001C17E3 /* ContentView.swift */; };
 		9692BF662C89EA92001C17E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9692BF652C89EA92001C17E3 /* Assets.xcassets */; };
@@ -14,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		96289F752C89F5F100CABAE2 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
+		96289F7A2C89F69E00CABAE2 /* MoviesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVM.swift; sourceTree = "<group>"; };
+		96289F7C2C89F6CB00CABAE2 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		96289F812C8A4C0F00CABAE2 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		96289F832C8A4E8A00CABAE2 /* MoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesView.swift; sourceTree = "<group>"; };
+		96289F852C8A580800CABAE2 /* MovieDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescription.swift; sourceTree = "<group>"; };
 		9692BF5E2C89EA90001C17E3 /* Movie-Test-JR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie-Test-JR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9692BF612C89EA90001C17E3 /* Movie_Test_JRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie_Test_JRApp.swift; sourceTree = "<group>"; };
 		9692BF632C89EA90001C17E3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,12 +39,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96289F792C89F67E00CABAE2 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96289F7E2C89F6DE00CABAE2 /* constants */ = {
+			isa = PBXGroup;
+			children = (
+				96289F7C2C89F6CB00CABAE2 /* API.swift */,
+			);
+			path = constants;
+			sourceTree = "<group>";
+		};
 		9692BF552C89EA90001C17E3 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +73,7 @@
 		9692BF602C89EA90001C17E3 /* Movie-Test-JR */ = {
 			isa = PBXGroup;
 			children = (
+				96289F7E2C89F6DE00CABAE2 /* constants */,
 				9692BF712C89EAD5001C17E3 /* view */,
 				9692BF702C89EACB001C17E3 /* viewModel */,
 				9692BF6F2C89EAC4001C17E3 /* model */,
@@ -73,6 +96,8 @@
 		9692BF6F2C89EAC4001C17E3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				96289F752C89F5F100CABAE2 /* Movies.swift */,
+				96289F812C8A4C0F00CABAE2 /* Error.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -80,6 +105,7 @@
 		9692BF702C89EACB001C17E3 /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
+				96289F7A2C89F69E00CABAE2 /* MoviesVM.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -87,6 +113,8 @@
 		9692BF712C89EAD5001C17E3 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				96289F832C8A4E8A00CABAE2 /* MoviesView.swift */,
+				96289F852C8A580800CABAE2 /* MovieDescription.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -107,6 +135,9 @@
 			dependencies = (
 			);
 			name = "Movie-Test-JR";
+			packageProductDependencies = (
+				96289F782C89F67E00CABAE2 /* Alamofire */,
+			);
 			productName = "Movie-Test-JR";
 			productReference = 9692BF5E2C89EA90001C17E3 /* Movie-Test-JR.app */;
 			productType = "com.apple.product-type.application";
@@ -135,6 +166,9 @@
 				Base,
 			);
 			mainGroup = 9692BF552C89EA90001C17E3;
+			packageReferences = (
+				96289F772C89F67E00CABAE2 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 9692BF5F2C89EA90001C17E3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -162,7 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9692BF642C89EA90001C17E3 /* ContentView.swift in Sources */,
+				96289F862C8A580800CABAE2 /* MovieDescription.swift in Sources */,
+				96289F842C8A4E8A00CABAE2 /* MoviesView.swift in Sources */,
 				9692BF622C89EA90001C17E3 /* Movie_Test_JRApp.swift in Sources */,
+				96289F762C89F5F100CABAE2 /* Movies.swift in Sources */,
+				96289F7B2C89F69E00CABAE2 /* MoviesVM.swift in Sources */,
+				96289F822C8A4C0F00CABAE2 /* Error.swift in Sources */,
+				96289F7D2C89F6CB00CABAE2 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +344,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,6 +374,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -368,6 +410,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		96289F772C89F67E00CABAE2 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		96289F782C89F67E00CABAE2 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96289F772C89F67E00CABAE2 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9692BF562C89EA90001C17E3 /* Project object */;
 }
