@@ -14,6 +14,7 @@ class MoviesVM {
     var movies: [Movie] = []
     var genres: [Int: String] = [:]
     var errorMessage: APIError? // Cambiar el tipo a APIError
+    var budget:Int = 0
     
     init() {
         getGenres()
@@ -51,6 +52,25 @@ class MoviesVM {
                 }
             }
     }
+    
+    func getBudget(id: Int) {
+        AF
+            .request("https://api.themoviedb.org/3/movie/\(id)?api_key=efbc2b95033e7dde757b6c455744baa2",
+                     method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: MovieDetails.self) { response in
+                switch response.result {
+                case .success(let data):
+                    self.budget = data.budget
+                    
+                case .failure(let error):
+                    let statusCode = response.response?.statusCode
+                    self.errorMessage = APIError(message: "Error al obtener monto: \(error.localizedDescription)", statusCode: statusCode)
+                    print("Error en el monto: \(self.errorMessage?.message ?? "Error desconocido")")
+                }
+            }
+    }
+
     
     func genreNames(for movie: Movie) -> String {
         let genreNames = movie.genre_ids.compactMap { genres[$0] }

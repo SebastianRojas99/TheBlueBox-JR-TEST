@@ -8,36 +8,74 @@
 import SwiftUI
 
 struct MovieDescription: View {
+    @State var budget:Int = 0
     @State  var movie: Movie
     @State var moviesVM = MoviesVM()
     var body: some View {
-        VStack{
-            if let posterPath = movie.poster_path{
-                AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
-                    image
-                        .resizable()
-                         .aspectRatio(contentMode: .fill)
-                         .frame(width: 300, height: 450)
-                         .clipShape(RoundedRectangle(cornerRadius: 20))
-                         
-                } placeholder: {
-                    ProgressView()
+        NavigationStack{
+            ScrollView{
+                VStack(alignment:.center){
+                    ZStack{
+                        if let posterPath = movie.poster_path{
+                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
+                                image
+                                    .resizable()
+                                     .aspectRatio(contentMode: .fill)
+                                     .frame(width: 400, height: 450)
+                                     .clipShape(RoundedRectangle(cornerRadius: 20))
+                                     .blur(radius: 50)
+                                     
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                        if let posterPath = movie.poster_path{
+                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
+                                image
+                                    .resizable()
+                                     .aspectRatio(contentMode: .fill)
+                                     .frame(width: 300, height: 450)
+                                     .clipShape(RoundedRectangle(cornerRadius: 20))
+                                     
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                    }
+                    
+                    VStack{
+                        Text(movie.title)
+                            .font(.largeTitle)
+                            .bold()
+                        Text(movie.overview)
+                            .font(.subheadline)
+                            .frame(alignment:.center)
+                            .lineLimit(7)
+                    
+                        Text(moviesVM.genreNames(for: movie))
+                            .padding()
+                            .background(.ultraThinMaterial) 
+                        VStack(spacing:5){
+                            Text("Budget: \(moviesVM.budget)")
+                                .font(.callout)
+                            Text("Popularity: \(movie.popularity.formatted(.number.precision(.fractionLength(0...2))))")
+                                .font(.caption)
+                            Text("Release date: \(movie.release_date)")
+                                .font(.caption2)
+                        }
+                        
+                        
+                    }.padding()
+                        
+                    
                 }
-                
-                Text(movie.title)
-                    .font(.largeTitle)
-                    .bold()
-                Text(movie.overview)
-                    .font(.subheadline)
-                    .lineLimit(4)
-                Text(moviesVM.genreNames(for: movie))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .padding()
-                    .background(.ultraThinMaterial)
-                Text("Popularity: \(movie.popularity.formatted(.number.precision(.fractionLength(0...2))))")
-                    .font(.caption)
             }
-        }
+        }.navigationTitle("Detail")
+            .onAppear {
+                
+                    moviesVM.getBudget(id: movie.id)
+                }            
+        
     }
 }
 
