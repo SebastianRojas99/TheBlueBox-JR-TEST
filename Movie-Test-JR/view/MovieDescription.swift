@@ -12,12 +12,14 @@ struct MovieDescription: View {
     @State var moviesVM = MoviesVM()
     var body: some View {
         VStack{
-            if let posterPath = movie.backdrop_path {
+            if let posterPath = movie.poster_path{
                 AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
                     image
                         .resizable()
-                         .aspectRatio(contentMode: .fit)
+                         .aspectRatio(contentMode: .fill)
                          .frame(width: 300, height: 450)
+                         .clipShape(RoundedRectangle(cornerRadius: 20))
+                         
                 } placeholder: {
                     ProgressView()
                 }
@@ -29,7 +31,10 @@ struct MovieDescription: View {
                     .font(.subheadline)
                     .lineLimit(4)
                 Text(moviesVM.genreNames(for: movie))
-                Text("\(movie.popularity)")
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .padding()
+                    .background(.ultraThinMaterial)
+                Text("Popularity: \(movie.popularity.formatted(.number.precision(.fractionLength(0...2))))")
                     .font(.caption)
             }
         }

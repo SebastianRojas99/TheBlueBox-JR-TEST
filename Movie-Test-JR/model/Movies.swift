@@ -13,6 +13,7 @@ struct Movie: Codable, Identifiable {
     let title: String
     let overview: String
     let backdrop_path: String?
+    let poster_path:String?
     let genre_ids:[Int]
     let popularity:Double
     let release_date:String
