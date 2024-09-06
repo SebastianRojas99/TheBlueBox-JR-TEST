@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MoviesView: View {
     @State private var moviesVM = MoviesVM()
-    
+    @AppStorage("darkMode") private var darkMode: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -34,10 +34,9 @@ struct MoviesView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text(item.title)
                                 .font(.title)
-                                .foregroundColor(.black)
                             Text(item.overview)
                                 .font(.subheadline)
-                                .foregroundColor(.gray.opacity(0.9))
+                                .foregroundStyle(.gray.opacity(0.9))
                                 .lineLimit(3)
                         }
                     }
@@ -46,6 +45,18 @@ struct MoviesView: View {
                 
             }
             .navigationTitle("Films")
+            .toolbar{
+                ToolbarItem(placement: .topBarTrailing){
+                    Button{
+                        darkMode.toggle()
+                    }label: {
+                        Image(systemName: darkMode ? "moon.stars.fill" : "sun.max.fill")
+                            .resizable()
+                            .font(.title)
+                            .foregroundStyle(darkMode ? .gray.opacity(0.7) : .yellow.opacity(0.7))
+                    }
+                }
+            }
             
-        }
+        }.preferredColorScheme(darkMode ? .dark : .light)
     }}
