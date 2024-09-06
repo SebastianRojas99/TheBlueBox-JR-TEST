@@ -25,26 +25,29 @@ class MoviesVM {
     }
     
     func getAllMovies() {
-        guard !isLoading else {return}
-        isLoading = true
-        AF
-            .request("\(api)\(currentPage)", method: .get)
-            .validate(statusCode: 200..<300)
-            .responseDecodable(of: Response.self) { response in
-                switch response.result {
-                case .success(let data):
-                    self.isLoading = false
-                    if self.currentPage<self.maxPage{
-                        self.currentPage+=1
-                    }
-                    self.movies = Array(data.results)
-                case .failure(let error):
-                    let statusCode = response.response?.statusCode
-                    self.errorMessage = APIError(message: "Error getting movies: \(error.localizedDescription)", statusCode: statusCode)
-                    print("API error: \(self.errorMessage?.message ?? "Unknow error")")
-                }
-            }
-    }
+           guard !isLoading && currentPage <= maxPage else { return }
+           isLoading = true
+           AF
+               .request("\(api)\(currentPage)", method: .get)
+               .validate(statusCode: 200..<300)
+               .responseDecodable(of: Response.self) { response in
+                   self.isLoading = false
+                   switch response.result {
+                   case .success(let data):
+                       self.movies.append(contentsOf: data.results)
+                       if self.currentPage < self.maxPage {
+                           self.currentPage += 1
+                       } else {
+                           self.currentPage = self.maxPage
+                       }
+                   case .failure(let error):
+                       let statusCode = response.response?.statusCode
+                       self.errorMessage = APIError(message: "Error getting movies: \(error.localizedDescription)", statusCode: statusCode)
+                       print("API error: \(self.errorMessage?.message ?? "Unknown error")")
+                   }
+               }
+       }
+
     
     func getGenres() {
         AF
