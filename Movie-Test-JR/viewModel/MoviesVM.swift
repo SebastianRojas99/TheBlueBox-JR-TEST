@@ -13,8 +13,11 @@ class MoviesVM {
     var movie: Movie?
     var movies: [Movie] = []
     var genres: [Int: String] = [:]
-    var errorMessage: APIError? // Cambiar el tipo a APIError
+    var errorMessage: APIError?
+    var currentPage = 1
+    var maxPage = 5
     var budget:Int = 0
+    var isLoading:Bool = false
     
     init() {
         getGenres()
@@ -22,17 +25,23 @@ class MoviesVM {
     }
     
     func getAllMovies() {
+        guard !isLoading else {return}
+        isLoading = true
         AF
-            .request(api, method: .get)
+            .request("\(api)\(currentPage)", method: .get)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: Response.self) { response in
                 switch response.result {
                 case .success(let data):
+                    self.isLoading = false
+                    if self.currentPage<self.maxPage{
+                        self.currentPage+=1
+                    }
                     self.movies = Array(data.results)
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
-                    self.errorMessage = APIError(message: "Error al obtener películas: \(error.localizedDescription)", statusCode: statusCode)
-                    print("Error en la API: \(self.errorMessage?.message ?? "Error desconocido")")
+                    self.errorMessage = APIError(message: "Error getting movies: \(error.localizedDescription)", statusCode: statusCode)
+                    print("API error: \(self.errorMessage?.message ?? "Unknow error")")
                 }
             }
     }
@@ -48,7 +57,7 @@ class MoviesVM {
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
                     self.errorMessage = APIError(message: "Error al obtener generos: \(error.localizedDescription)", statusCode: statusCode)
-                    print("Error en los generos: \(self.errorMessage?.message ?? "Error desconocido")")
+                    print("Genre error: \(self.errorMessage?.message ?? "Unknow error")")
                 }
             }
     }
@@ -65,8 +74,8 @@ class MoviesVM {
                     
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
-                    self.errorMessage = APIError(message: "Error al obtener monto: \(error.localizedDescription)", statusCode: statusCode)
-                    print("Error en el monto: \(self.errorMessage?.message ?? "Error desconocido")")
+                    self.errorMessage = APIError(message: "Budget error: \(error.localizedDescription)", statusCode: statusCode)
+                    print("Budget error: \(self.errorMessage?.message ?? "Unknow error")")
                 }
             }
     }
