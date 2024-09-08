@@ -20,7 +20,7 @@ struct MoviesView: View {
                 } label: {
                     HStack(alignment: .center, spacing: 10) {
                         if let posterPath = movie.backdrop_path {
-                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
+                            AsyncImage(url: URL(string: "\(apiImage)\(posterPath)")) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

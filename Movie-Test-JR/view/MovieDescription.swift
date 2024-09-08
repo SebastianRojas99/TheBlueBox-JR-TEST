@@ -17,7 +17,7 @@ struct MovieDescription: View {
                 VStack(alignment:.center){
                     ZStack{
                         if let posterPath = movie.poster_path{
-                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
+                            AsyncImage(url: URL(string: "\(apiImage)\(posterPath)")) { image in
                                 image
                                     .resizable()
                                      .aspectRatio(contentMode: .fill)
@@ -30,7 +30,7 @@ struct MovieDescription: View {
                             }
                         }
                         if let posterPath = movie.poster_path{
-                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { image in
+                            AsyncImage(url: URL(string: "\(apiImage)\(posterPath)")) { image in
                                 image
                                     .resizable()
                                      .aspectRatio(contentMode: .fill)
@@ -50,6 +50,7 @@ struct MovieDescription: View {
                         Text(movie.overview)
                             .font(.subheadline)
                             .frame(alignment:.center)
+                            .foregroundStyle(.gray.opacity(0.9))
                             .lineLimit(7)
                     
                         Text(moviesVM.genreNames(for: movie))

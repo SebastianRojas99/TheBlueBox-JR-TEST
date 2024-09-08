@@ -51,7 +51,7 @@ class MoviesVM {
     
     func getGenres() {
         AF
-            .request("https://api.themoviedb.org/3/genre/movie/list?api_key=efbc2b95033e7dde757b6c455744baa2", method: .get)
+            .request(apiGenres, method: .get)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: GenreResponse.self) { response in
                 switch response.result {
