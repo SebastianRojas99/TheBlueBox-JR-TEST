@@ -18,6 +18,7 @@ class MoviesVM {
     var maxPage = 5
     var budget:Int = 0
     var isLoading:Bool = false
+    private var genreCache = NSCache<NSNumber,NSString>()
     
     init() {
         getGenres()
@@ -56,7 +57,9 @@ class MoviesVM {
             .responseDecodable(of: GenreResponse.self) { response in
                 switch response.result {
                 case .success(let data):
-                    self.genres = Dictionary(uniqueKeysWithValues: data.genres.map { ($0.id, $0.name) })
+                    for genres in data.genres{
+                        self.genreCache.setObject(NSString(string: genres.name),forKey: NSNumber(value: genres.id))
+                    }
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
                     self.errorMessage = APIError(message: "Error al obtener generos: \(error.localizedDescription)", statusCode: statusCode)
@@ -85,7 +88,7 @@ class MoviesVM {
 
     
     func genreNames(for movie: Movie) -> String {
-        let genreNames = movie.genre_ids.compactMap { genres[$0] }
+        let genreNames = movie.genre_ids.compactMap { genreCache.object(forKey: NSNumber(value: $0)) as String? }
         return genreNames.joined(separator: ", ")
     }
 }
