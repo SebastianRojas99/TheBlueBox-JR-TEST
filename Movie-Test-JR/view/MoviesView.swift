@@ -44,7 +44,7 @@ struct MoviesView: View {
                 }
                 .onAppear {
                     if movie.id == moviesVM.movies.last?.id {
-                        if moviesVM.currentPage < moviesVM.maxPage {
+                        if moviesVM.currentPage < moviesVM.maxPage && !moviesVM.isLoading {
                             moviesVM.getAllMovies()
                         } else if moviesVM.currentPage == moviesVM.maxPage && !showMessage {
                             showMessage = true
