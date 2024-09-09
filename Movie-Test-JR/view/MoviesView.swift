@@ -11,6 +11,7 @@ struct MoviesView: View {
     @State private var moviesVM = MoviesVM()
     @AppStorage("darkMode") private var darkMode: Bool = false
     @State private var showMessage = false
+    @State private var showError = false
     
     var body: some View {
         NavigationStack {
@@ -52,6 +53,9 @@ struct MoviesView: View {
                     if movie.id == moviesVM.movies.first?.id {
                         showMessage = false
                     }
+                    if let errorMessage = moviesVM.errorMessage, !errorMessage.message.isEmpty {
+                        showError = true
+                    }
                 }
             }
             .navigationTitle("Films")
@@ -70,5 +74,12 @@ struct MoviesView: View {
             Text(showMessage ? "Maximo alcanzado" : "")
         }
         .preferredColorScheme(darkMode ? .dark : .light)
+        .alert(isPresented: $showError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(moviesVM.errorMessage?.message ?? "Unknown error"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }

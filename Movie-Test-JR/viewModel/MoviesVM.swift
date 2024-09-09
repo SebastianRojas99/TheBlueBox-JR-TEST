@@ -12,7 +12,6 @@ import Observation
 class MoviesVM {
     var movie: Movie?
     var movies: [Movie] = []
-    var genres: [Int: String] = [:]
     var errorMessage: APIError?
     var currentPage = 1
     var maxPage = 5
@@ -26,29 +25,28 @@ class MoviesVM {
     }
     
     func getAllMovies() {
-           guard !isLoading && currentPage <= maxPage else { return }
-           isLoading = true
-           AF
-               .request("\(api)\(currentPage)", method: .get)
-               .validate(statusCode: 200..<300)
-               .responseDecodable(of: Response.self) { response in
-                   self.isLoading = false
-                   switch response.result {
-                   case .success(let data):
-                       self.movies.append(contentsOf: data.results)
-                       if self.currentPage < self.maxPage {
-                           self.currentPage += 1
-                       } else {
-                           self.currentPage = self.maxPage
-                       }
-                   case .failure(let error):
-                       let statusCode = response.response?.statusCode
-                       self.errorMessage = APIError(message: "Error getting movies: \(error.localizedDescription)", statusCode: statusCode)
-                       print("API error: \(self.errorMessage?.message ?? "Unknown error")")
-                   }
-               }
-       }
-
+        guard !isLoading && currentPage <= maxPage else { return }
+        isLoading = true
+        AF
+            .request("\(api)\(currentPage)", method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Response.self) { response in
+                self.isLoading = false
+                switch response.result {
+                case .success(let data):
+                    self.movies.append(contentsOf: data.results)
+                    if self.currentPage < self.maxPage {
+                        self.currentPage += 1
+                    } else {
+                        self.currentPage = self.maxPage
+                    }
+                case .failure(let error):
+                    let statusCode = response.response?.statusCode
+                    self.errorMessage = APIError(message: "Error getting movies: \(error.localizedDescription)", statusCode: statusCode)
+                }
+            }
+    }
+    
     
     func getGenres() {
         AF
@@ -63,7 +61,6 @@ class MoviesVM {
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
                     self.errorMessage = APIError(message: "Error al obtener generos: \(error.localizedDescription)", statusCode: statusCode)
-                    print("Genre error: \(self.errorMessage?.message ?? "Unknow error")")
                 }
             }
     }
@@ -81,11 +78,10 @@ class MoviesVM {
                 case .failure(let error):
                     let statusCode = response.response?.statusCode
                     self.errorMessage = APIError(message: "Budget error: \(error.localizedDescription)", statusCode: statusCode)
-                    print("Budget error: \(self.errorMessage?.message ?? "Unknow error")")
                 }
             }
     }
-
+    
     
     func genreNames(for movie: Movie) -> String {
         let genreNames = movie.genre_ids.compactMap { genreCache.object(forKey: NSNumber(value: $0)) as String? }
