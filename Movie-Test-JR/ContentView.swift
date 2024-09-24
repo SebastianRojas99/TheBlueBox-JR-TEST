@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {        
-        MoviesView()
+    @StateObject var moviesVM: MoviesVM
+    var body: some View {
+        MoviesView(moviesVM: moviesVM)
     }
 }

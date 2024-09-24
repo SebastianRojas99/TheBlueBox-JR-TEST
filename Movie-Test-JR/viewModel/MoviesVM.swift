@@ -9,7 +9,7 @@ import Alamofire
 import Observation
 
 @Observable
-class MoviesVM {
+class MoviesVM:ObservableObject {
     var movie: Movie?
     var movies: [Movie] = []
     var errorMessage: APIError?

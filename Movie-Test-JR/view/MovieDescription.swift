@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDescription: View {
     @State var budget:Int = 0
     @State  var movie: Movie
-    @State var moviesVM = MoviesVM()
+    @ObservedObject var moviesVM: MoviesVM
     var body: some View {
         NavigationStack{
             ScrollView{

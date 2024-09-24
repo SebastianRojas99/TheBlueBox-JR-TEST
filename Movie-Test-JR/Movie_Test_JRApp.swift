@@ -11,7 +11,7 @@ import SwiftUI
 struct Movie_Test_JRApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(moviesVM: MoviesVM())
         }
     }
 }

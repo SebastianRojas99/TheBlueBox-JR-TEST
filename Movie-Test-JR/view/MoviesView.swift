@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoviesView: View {
-    @State private var moviesVM = MoviesVM()
+    @StateObject  var moviesVM:MoviesVM
     @AppStorage("darkMode") private var darkMode: Bool = false
     @State private var showMessage = false
     @State private var showError = false
@@ -17,7 +17,7 @@ struct MoviesView: View {
         NavigationStack {
             List(moviesVM.movies, id: \.id) { movie in
                 NavigationLink {
-                    MovieDescription(movie: movie)
+                    MovieDescription(movie: movie, moviesVM: moviesVM)
                 } label: {
                     HStack(alignment: .center, spacing: 10) {
                         if let posterPath = movie.backdrop_path {
