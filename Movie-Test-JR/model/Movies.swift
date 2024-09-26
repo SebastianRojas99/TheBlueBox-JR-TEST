@@ -16,7 +16,7 @@ struct Movie: Codable, Identifiable {
     let poster_path:String?
     let genre_ids:[Int]
     let popularity:Double
-    let release_date:String    
+    let release_date:String
 }
 
 struct Response:Codable{

@@ -10,7 +10,6 @@ import Observation
 
 @Observable
 class MoviesVM:ObservableObject {
-    var movie: Movie?
     var movies: [Movie] = []
     var errorMessage: APIError?
     var currentPage = 1
@@ -19,9 +18,9 @@ class MoviesVM:ObservableObject {
     var isLoading:Bool = false
     private var genreCache = NSCache<NSNumber,NSString>()
     
-    init() {
-        getGenres()
-        getAllMovies()
+    init(){
+            getAllMovies()
+            getGenres()
     }
     
     func getAllMovies() {
@@ -30,7 +29,8 @@ class MoviesVM:ObservableObject {
         AF
             .request("\(api)\(currentPage)", method: .get)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: Response.self) { response in
+            .responseDecodable(of: Response.self) { [weak self] response in
+                guard let self = self else { return }
                 self.isLoading = false
                 switch response.result {
                 case .success(let data):
@@ -46,13 +46,15 @@ class MoviesVM:ObservableObject {
                 }
             }
     }
+
     
     
     func getGenres() {
         AF
             .request(apiGenres, method: .get)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: GenreResponse.self) { response in
+            .responseDecodable(of: GenreResponse.self) { [weak self] response in
+                guard let self = self else { return }
                 switch response.result {
                 case .success(let data):
                     for genres in data.genres{
@@ -70,7 +72,8 @@ class MoviesVM:ObservableObject {
             .request("https://api.themoviedb.org/3/movie/\(id)?api_key=efbc2b95033e7dde757b6c455744baa2",
                      method: .get)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: MovieDetails.self) { response in
+            .responseDecodable(of: MovieDetails.self) { [weak self] response in
+                guard let self = self else { return }
                 switch response.result {
                 case .success(let data):
                     self.budget = data.budget
@@ -86,6 +89,12 @@ class MoviesVM:ObservableObject {
     func genreNames(for movie: Movie) -> String {
         let genreNames = movie.genre_ids.compactMap { genreCache.object(forKey: NSNumber(value: $0)) as String? }
         return genreNames.joined(separator: ", ")
+    }
+    func loadMoreMovies() {
+        
+        if currentPage < maxPage && !isLoading {
+            getAllMovies()
+        }
     }
 }
 

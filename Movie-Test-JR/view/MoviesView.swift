@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoviesView: View {
-    @StateObject  var moviesVM:MoviesVM
+    @StateObject  var moviesVM = MoviesVM()
     @AppStorage("darkMode") private var darkMode: Bool = false
     @State private var showMessage = false
     @State private var showError = false
@@ -25,7 +25,7 @@ struct MoviesView: View {
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 100)
+                                    .frame(maxWidth: 100)
                                     .padding(8)
                                     .border(.gray, width: 0.4)
                             } placeholder: {
@@ -43,19 +43,23 @@ struct MoviesView: View {
                     }
                 }
                 .onAppear {
-                    if movie.id == moviesVM.movies.last?.id {
-                        if moviesVM.currentPage < moviesVM.maxPage && !moviesVM.isLoading {
-                            moviesVM.getAllMovies()
-                        } else if moviesVM.currentPage == moviesVM.maxPage && !showMessage {
-                            showMessage = true
-                        }
+                    
+                    if moviesVM.currentPage >= moviesVM.maxPage && movie.id == moviesVM.movies.last?.id {
+                        
+                        showMessage = true
+                        
+                    } else {
+                        moviesVM.loadMoreMovies()
+                        showMessage = false
                     }
+                    
                     if movie.id == moviesVM.movies.first?.id {
                         showMessage = false
                     }
                     if let errorMessage = moviesVM.errorMessage, !errorMessage.message.isEmpty {
                         showError = true
                     }
+                    
                 }
             }
             .navigationTitle("Films")
